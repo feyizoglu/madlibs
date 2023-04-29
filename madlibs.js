@@ -1,36 +1,54 @@
 /**
- * Complete the implementation of parseStory.
+
  *
  * parseStory retrieves the story as a single string from story.txt
  * (I have written this part for you).
  *
- * In your code, you are required (please read this carefully):
- * - to return a list of objects
- * - each object should definitely have a field, `word`
- * - each object should maybe have a field, `pos` (part of speech)
- *
- * So for example, the return value of this for the example story.txt
- * will be an object that looks like so (note the comma! periods should
- * be handled in the same way).
- *
- * Input: "Louis[n] went[v] to the store[n], and it was fun[a]."
- * Output: [
- *  { word: "Louis", pos: "noun" },
- *  { word: "went", pos: "verb", },
- *  { word: "to", },
- *  { word: "the", },
- *  { word: "store", pos: "noun" }
- *  { word: "," }
- *  ....
+
+ 
  *
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
+
  */
+
 function parseStory(rawStory) {
-  // Your code here.
-  return {}; // This line is currently wrong :)
+  const turnedObject = {
+    n: "noun",
+    v: "verb",
+    a: "adjective",
+  };
+
+  let wordsArray = rawStory.split(/\s|\]/);
+  wordsArray = wordsArray.filter((item) => item !== "");
+  console.log(wordsArray);
+
+  let regEx = /^\w+(?:...[n|a|v])/;
+
+  let wordsObj = [];
+  for (let i = 0; i < wordsArray.length; i++) {
+    if (regEx.test(wordsArray[i])) {
+      let word = wordsArray[i].match(regEx)[0];
+      let pos = word.slice(word.length - 1, word.length);
+      pos = turnedObject[pos];
+      word = word.slice(0, word.length - 2);
+
+      wordsObj.push({ word: word, pos: pos });
+    } else {
+      word = wordsArray[i];
+      wordsObj.push({ word: word });
+    }
+  }
+  // firstDiv(wordsObj);
+  console.log(wordsObj);
 }
 
+function firstDiv(arr) {
+  const sentence = document.createElement("p");
+  const storyDiv = document.querySelector(".madLibsEdit");
+  sentence.innerHTML = arr[word].join();
+  storyDiv.appendChild(sentence);
+}
 /**
  * All your other JavaScript code goes here, inside the function. Don't worry about
  * the `then` and `async` syntax for now.
