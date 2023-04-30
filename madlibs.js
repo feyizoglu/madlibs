@@ -26,29 +26,56 @@ function parseStory(rawStory) {
   let regEx = /^\w+(?:...[n|a|v])/;
 
   let wordsObj = [];
+  let firstId = 0;
   for (let i = 0; i < wordsArray.length; i++) {
     if (regEx.test(wordsArray[i])) {
+      firstId++;
       let word = wordsArray[i].match(regEx)[0];
       let pos = word.slice(word.length - 1, word.length);
       pos = turnedObject[pos];
       word = word.slice(0, word.length - 2);
 
-      wordsObj.push({ word: word, pos: pos });
+      wordsObj.push({ word: word, pos: pos, id: firstId });
     } else {
       word = wordsArray[i];
       wordsObj.push({ word: word });
     }
   }
-  // firstDiv(wordsObj);
+  arrangeDiv(wordsObj);
   console.log(wordsObj);
 }
 
-function firstDiv(arr) {
-  const sentence = document.createElement("p");
+function arrangeDiv(arr) {
   const storyDiv = document.querySelector(".madLibsEdit");
-  sentence.innerHTML = arr[word].join();
-  storyDiv.appendChild(sentence);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].pos) {
+      storyDiv.innerHTML += `<input id=${arr[i].id} placeholder=${arr[i].pos}> `;
+    } else {
+      storyDiv.innerHTML += arr[i].word + " ";
+    }
+  }
+
+  // const input = document.querySelector("input");
+  // const log = document.getElementById("values");
+  // input.addEventListener("input", updateValue);
+  // function updateValue(e) {
+  //   log.textContent = e.target.value;
+  // }
+
+  const storyDiv2 = document.querySelector(".madLibsPreview");
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].pos) {
+      let input = document.getElementById(`${arr[i].id}`);
+      input.addEventListener("input", updateValue);
+      function updateValue(e) {
+        storyDiv2.innerHTML += e.target.value;
+      }
+    } else {
+      storyDiv2.innerHTML += arr[i].word + " ";
+    }
+  }
 }
+
 /**
  * All your other JavaScript code goes here, inside the function. Don't worry about
  * the `then` and `async` syntax for now.
