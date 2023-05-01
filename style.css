@@ -1,3 +1,58 @@
-/**
- * Your CSS goes here.
- */
+body {
+  font-family: "Courier New", Courier, monospace;
+  background: rgb(168, 111, 111);
+  font-size: 26px;
+  line-height: 50px;
+  color: blue;
+  display: flex;
+  flex-direction: column;
+}
+.madLibsEdit {
+  margin: 5%;
+  border: black 5px solid;
+  padding: 3%;
+}
+.madLibsEdit > input {
+  width: 30%;
+  border-color: rgb(168, 111, 111);
+  border-style: none;
+  font-size: 26px;
+  color: rgb(236, 252, 22);
+  border-radius: 5%;
+}
+
+.madLibsPreview {
+  margin: 5%;
+  border: black 5px solid;
+  padding: 3%;
+}
+
+@media only screen and (min-width: 800px) {
+  body {
+    flex-direction: row;
+  }
+  .madLibsPreview {
+    width: 50rem;
+  }
+  .madLibsEdit {
+    width: 50rem;
+  }
+}
+.filled {
+  background-color: black;
+}
+.empty {
+  background-color: blue;
+}
+.first-sit {
+  background-color: blue;
+}
+.now {
+  background-color: rgb(175, 175, 138);
+}
+.black {
+  color: black;
+}
+.output {
+  color: rgb(12, 214, 197);
+}
